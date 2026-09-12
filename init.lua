@@ -4,6 +4,7 @@ vim.cmd.colorscheme("matugen")
 
 require("configs.options")
 require("configs.autocmds")
+require("configs.lsp")
 require("configs.keymaps")
 
 vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
@@ -23,4 +24,3 @@ load_plugins({
   "mason",
   "treesitter",
 })
-

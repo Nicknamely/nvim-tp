@@ -1,3 +1,4 @@
+vim.opt.exrc = true
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.o.swapfile = false
@@ -16,11 +17,15 @@ vim.opt.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
 vim.opt.expandtab = true -- use spaces instead of tabs
 vim.o.breakindent = true
 vim.opt.smartindent = true -- smart auto-indent
-vim.opt.wrap = false -- do not wrap lines by default
+-- vim.opt.wrap = false -- do not wrap lines by default
+vim.opt.iskeyword:append("-") -- include - in words
 
+vim.opt.colorcolumn = "80" -- show a column at <number> position chars
+vim.opt.showmatch = true -- highlights matching brackets
 -- vim.o.showmode = false
 vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
+vim.opt.swapfile = false -- do not create a swapfile
 vim.o.undofile = true
 vim.o.autoread = true
 vim.o.laststatus = 3
@@ -31,7 +36,7 @@ vim.opt.hlsearch = true -- hightlight search matches
 vim.opt.incsearch = true --show matches as you type
 
 vim.o.updatetime = 250
-vim.timeoutlen = 300
+vim.o.timeoutlen = 300
 
 vim.o.splitright = true
 vim.o.splitbelow = true
