@@ -23,4 +23,5 @@ load_plugins({
   "grep",
   "mason",
   "treesitter",
+  "conform",
 })
