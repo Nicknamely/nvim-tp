@@ -1,21 +1,19 @@
 vim.loader.enable()
 vim.cmd.colorscheme("matugen")
-vim.pack.add({ "https://github.com/neovim/nvim-lspconfig" })
 
 require("configs.options")
 require("configs.autocmds")
 require("configs.lsp")
 require("configs.keymaps")
 
-
 -- PLUGINS
-function load_plugins(plugins)
+local function load_plugins(plugins)
 	for _, name in ipairs(plugins) do
 		require("plugins." .. name)
 	end
 end
-
-load_plugins({
+--
+local plugins = {
 	"netrw",
 	"undotree",
 	"find",
@@ -23,4 +21,6 @@ load_plugins({
 	"mason",
 	"treesitter",
 	"conform",
-})
+}
+
+load_plugins(plugins)

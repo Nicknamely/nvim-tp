@@ -1,14 +1,14 @@
 vim.opt.exrc = true
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-vim.g.have_nerd_font  = true
+vim.g.have_nerd_font = true
 -- vim.o.number = true
 vim.opt.cmdheight = 0 -- single line cmd line
 vim.o.number = true
 vim.o.relativenumber = false
-vim.o.signcolumn = 'yes'
-vim.o.mouse = 'a'
+vim.o.signcolumn = "yes"
+vim.o.mouse = "a"
 
 vim.opt.tabstop = 2 -- tabwidth
 vim.opt.shiftwidth = 2 -- indent width
@@ -22,7 +22,9 @@ vim.opt.iskeyword:append("-") -- include - in words
 vim.opt.colorcolumn = "80" -- show a column at <number> position chars
 vim.opt.showmatch = true -- highlights matching brackets
 -- vim.o.showmode = false
-vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.schedule(function()
+	vim.o.clipboard = "unnamedplus"
+end)
 
 vim.opt.swapfile = false -- do not create a swapfile
 vim.o.undofile = true
@@ -42,9 +44,9 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 vim.o.list = true
-vim.opt.listchars = {trail = '·', nbsp = '␣' , tab = '  '}
+vim.opt.listchars = { trail = "·", nbsp = "␣", tab = "  " }
 
-vim.o.inccommand = 'split' -- ?
+vim.o.inccommand = "split" -- ?
 
 vim.o.cursorline = true
 vim.o.scrolloff = 10
@@ -55,7 +57,42 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
 vim.opt.autocomplete = true
-vim.opt.completeopt = 'menuone,fuzzy,noinsert,popup'
+vim.opt.completeopt = "menuone,fuzzy,noinsert,popup"
 vim.o.pumheight = 10
 
+vim.diagnostic.config({
+	severity_sort = true,
+	update_in_insert = false,
 
+	underline = {
+		severity = { min = vim.diagnostic.severity.WARN },
+	},
+
+	virtual_text = {
+		source = "if_many",
+		spacing = 4,
+		prefix = "●",
+		format = function(diagnostic)
+			local msg = diagnostic.message
+			if #msg > 60 then
+				msg = msg:sub(1, 57) .. "..."
+			end
+			return msg
+		end,
+	},
+
+	signs = vim.g.have_nerd_font and {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+	} or true,
+
+	float = {
+		-- border = "rounded",
+		source = "if_many",
+		focusable = false,
+	},
+})
