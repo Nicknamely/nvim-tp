@@ -1,7 +1,6 @@
 vim.opt.exrc = true
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.o.swapfile = false
 
 vim.g.have_nerd_font  = true
 -- vim.o.number = true
@@ -29,6 +28,7 @@ vim.opt.swapfile = false -- do not create a swapfile
 vim.o.undofile = true
 vim.o.autoread = true
 vim.o.laststatus = 3
+vim.o.autoread = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -54,10 +54,8 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
--- completion
 vim.opt.autocomplete = true
-vim.o.completeopt = 'menuone,fuzzy,noinsert,popup'
+vim.opt.completeopt = 'menuone,fuzzy,noinsert,popup'
 vim.o.pumheight = 10
 
--- diagnostic
-vim.diagnostic.config({ virtual_text = true})
+
