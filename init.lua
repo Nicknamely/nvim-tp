@@ -21,6 +21,7 @@ local plugins = {
 	"mason",
 	"treesitter",
 	"conform",
+  "render_markdown",
 }
 
 load_plugins(plugins)
