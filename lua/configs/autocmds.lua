@@ -1,3 +1,9 @@
+-- Reload colorscheme
+vim.api.nvim_create_autocmd("Signal", {
+    pattern = "SIGUSR1",
+    command = "colorscheme matugen",
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
@@ -63,7 +69,13 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 	pattern = { "grep", "grep!", "lgrep" },
 	command = "cwindow",
 })
+-- cmd completion
+-- vim.api.nvim_create_autocmd('CmdlineChanged', {
+--   pattern = { ':', '/', '?' },
+--   callback = function() vim.fn.wildtrigger() end,
+-- })
 
+-- diagnostic
 vim.api.nvim_create_autocmd("CursorHold", {
 	desc = "Show diagnostic message on cursor hold",
 	group = vim.api.nvim_create_augroup("diagnostic-float", { clear = true }),
