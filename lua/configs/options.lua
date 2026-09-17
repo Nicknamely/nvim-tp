@@ -22,7 +22,12 @@ vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.list = true
 vim.opt.listchars = { trail = "·", nbsp = "␣", tab = "  " }
-
+vim.opt.shortmess:append({
+  W = true,
+  I = true,
+  c = true,
+  C = true,
+})
 -- Indentation
 vim.opt.tabstop = 2 -- tabwidth
 vim.opt.shiftwidth = 2 -- indent width
@@ -32,6 +37,7 @@ vim.o.breakindent = true
 vim.opt.smartindent = true -- smart auto-indent
 vim.opt.iskeyword:append("-") -- include - in words
 
+vim.opt.backspace = "indent,eol,start" -- better backspave behavior
 -- Clipboard
 vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
