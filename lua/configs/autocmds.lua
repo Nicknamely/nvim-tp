@@ -1,7 +1,7 @@
 -- Reload colorscheme
 vim.api.nvim_create_autocmd("Signal", {
-    pattern = "SIGUSR1",
-    command = "colorscheme matugen",
+	pattern = "SIGUSR1",
+	command = "colorscheme matugen",
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -125,5 +125,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 			end)
 		end
+	end,
+})
+---
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "help",
+	callback = function()
+		vim.cmd("wincmd T")
 	end,
 })
