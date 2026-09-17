@@ -66,15 +66,15 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
--- Completion
-vim.opt.autocomplete = true
+-- -- Completion
+-- vim.opt.autocomplete = true
 vim.opt.completeopt = "menuone,fuzzy,noinsert,popup"
-vim.o.pumheight = 10
-vim.o.pumborder = "solid"
--- cmd
--- vim.opt.wildmode = "noselect:lastused,full"
-vim.opt.wildoptions = "pum,fuzzy"       -- floating popup menu + fuzzy matching
-vim.o.wildignorecase = true             -- case-insensitive file/command completion
+-- vim.o.pumheight = 10
+-- vim.o.pumborder = "solid"
+-- -- cmd
+-- -- vim.opt.wildmode = "noselect:lastused,full"
+-- vim.opt.wildoptions = "pum,fuzzy"       -- floating popup menu + fuzzy matching
+-- vim.o.wildignorecase = true             -- case-insensitive file/command completion
 vim.opt.wildignore:append({
   "*.o", "*.obj", "*.pyc",
   ".git/*", "node_modules/*", "dist/*", "build/*",
