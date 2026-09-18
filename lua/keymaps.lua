@@ -24,7 +24,7 @@ vim.keymap.set("n", "<leader>un", function()
 	vim.o.number = not vim.o.number
 end, { desc = "Toggle number" })
 
--- Code -- Some are defined in config.autocmds or in ftplugins/
+
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 	require("conform").format({ async = true })
 end, { desc = "[F]ormat buffer" })
