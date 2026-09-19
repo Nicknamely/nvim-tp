@@ -1,6 +1,8 @@
 vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 
-require("snacks").setup({
+local Snacks = require("snacks")
+
+Snacks.setup({
 
 	bigfile = { enabled = true },
 	indent = { enabled = true },
@@ -30,7 +32,6 @@ require("snacks").setup({
 				layout = {
 					layout = {
 						position = "right",
-						-- position = "left",
 					},
 				},
 			},
@@ -50,7 +51,6 @@ require("snacks").setup({
 
 -- keymaps
 local map = vim.keymap.set
-local Snacks = require("snacks")
 
 map("n", "<leader>z", function()
 	Snacks.zen()
