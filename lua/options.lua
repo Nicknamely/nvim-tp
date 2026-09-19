@@ -68,7 +68,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
 -- Completion
-vim.opt.autocomplete = true
+-- vim.opt.autocomplete = true
 vim.opt.completeopt = "menuone,fuzzy,noinsert,popup"
 vim.o.pumheight = 10
 vim.o.pumborder = "none"
