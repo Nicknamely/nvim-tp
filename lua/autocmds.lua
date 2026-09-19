@@ -84,6 +84,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 	end,
 })
 -- LSP
+-- Disable semantic tokens when any LSP client attaches to a buffer
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -93,11 +94,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			return
 		end
 
+		if client then
+			client.server_capabilities.semanticTokensProvider = nil
+		end
 		-- Completion
 		if client:supports_method("textDocument/completion") then
 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 		end
 
+    -- better grr
+		local Snacks = require("snacks")
+		if Snacks.picker then
+			vim.keymap.set("n", "grr", function()
+				Snacks.picker.lsp_references()
+			end, {
+				buffer = event.buf,
+				desc = "Goto references",
+			})
+		end
 		-- Document highlight on cursor hold
 		if client:supports_method("textDocument/documentHighlight", event.buf) then
 			local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
