@@ -1,48 +1,48 @@
 -- General
-vim.opt.exrc = true
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.have_nerd_font = true
+
+vim.o.exrc = true
 vim.o.autoread = true
 vim.o.autoread = true
 vim.o.confirm = true
 vim.o.inccommand = "split" -- ?
 
 -- UI
-vim.opt.cmdheight = 0 -- single line cmd line
+vim.o.cmdheight = 0 -- single line cmd line
 vim.o.number = true
 vim.o.relativenumber = false
 vim.o.signcolumn = "yes"
 vim.o.mouse = "a"
 -- vim.o.winborder = "single"
-vim.opt.colorcolumn = "80" -- show a column at <number> position chars
-vim.opt.showmatch = true -- highlights matching brackets
+vim.o.colorcolumn = "80" -- show a column at <number> position chars
+vim.o.showmatch = true -- highlights matching brackets
 vim.o.laststatus = 3
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.list = true
 vim.opt.listchars = { trail = "·", nbsp = "␣", tab = "  " }
 vim.opt.shortmess:append({
-  W = true,
-  I = true,
-  c = true,
-  C = true,
+	W = true,
+	I = true,
+	c = true,
+	C = true,
 })
 
--- Indentation
-vim.opt.tabstop = 2 -- tabwidth
-vim.opt.shiftwidth = 2 -- indent width
-vim.opt.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
-vim.opt.expandtab = true -- use spaces instead of tabs
+-- Editing
+vim.o.tabstop = 2 -- tabwidth
+vim.o.shiftwidth = 2 -- indent width
+vim.o.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
+vim.o.expandtab = true -- use spaces instead of tabs
 vim.o.breakindent = true
-vim.opt.smartindent = true -- smart auto-indent
+vim.o.smartindent = true -- smart auto-indent
 vim.opt.iskeyword:append("-") -- include - in words
+vim.o.wrap = true
+vim.o.linebreak = true
 
 vim.opt.backspace = "indent,eol,start" -- better backspave behavior
 -- Clipboard
-vim.schedule(function()
-	vim.o.clipboard = "unnamedplus"
-end)
+-- vim.schedule(function()
+vim.o.clipboard = "unnamedplus"
+-- end)
 
 -- Files
 vim.opt.swapfile = false -- do not create a swapfile
@@ -73,12 +73,17 @@ vim.opt.completeopt = "menuone,fuzzy,noinsert,popup"
 vim.o.pumheight = 10
 vim.o.pumborder = "none"
 -- cmd
--- vim.opt.wildmode = "noselect:lastused,full"
-vim.opt.wildoptions = "pum,fuzzy"       -- floating popup menu + fuzzy matching
-vim.o.wildignorecase = true             -- case-insensitive file/command completion
+vim.opt.wildmode = "longest:full,full"
+vim.opt.wildoptions = "pum,fuzzy" -- floating popup menu + fuzzy matching
+vim.o.wildignorecase = true -- case-insensitive file/command completion
 vim.opt.wildignore:append({
-  "*.o", "*.obj", "*.pyc",
-  ".git/*", "node_modules/*", "dist/*", "build/*",
+	"*.o",
+	"*.obj",
+	"*.pyc",
+	".git/*",
+	"node_modules/*",
+	"dist/*",
+	"build/*",
 })
 --
 -- Diagnostics
@@ -120,10 +125,3 @@ vim.diagnostic.config({
 })
 
 -- UI2
-require('vim._core.ui2').enable({
-  msg = {
-    target = 'msg',
-    msg = { timeout = 3000 },
-  },
-})
-
