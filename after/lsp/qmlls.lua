@@ -14,6 +14,6 @@
 ---@type vim.lsp.Config
 return {
   cmd = { 'qmlls6' },
-  filetypes = { 'qml', 'qmljs','qmldir' },
+  filetypes = { 'qml'},
   root_markers = { '.git' },
 }
