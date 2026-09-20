@@ -1,7 +1,7 @@
 vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 
 require("conform").setup({
-	notify_on_error = false,
+	notify_on_error = true,
 	format_on_save = function(bufnr)
 		-- You can specify filetypes to autoformat on save here:
 		local enabled_filetypes = {
@@ -17,12 +17,25 @@ require("conform").setup({
 	default_format_opts = {
 		lsp_format = "fallback", -- Use external formatters if configured below, otherwise use LSP formatting. Set to `false` to disable LSP formatting entirely.
 	},
+
+	formatters = {
+		qmlformat = {
+			command = "/usr/lib/qt6/bin/qmlformat",
+			args = { "-i", "$FILENAME" },
+			stdin = false,
+		},
+		--  clang_format = {
+		--    prepend_args = { "-style={BasedOnStyle: llvm, IndentWidth: 4}" },
+		--  },
+	},
+
 	-- You can also specify external formatters in here.
 	formatters_by_ft = {
 		lua = { "stylua" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		markdown = { "prettier" },
+		qml = { "qmlformat" },
 		-- rust = { 'rustfmt' },
 		-- Conform can also run multiple formatters sequentially
 		-- python = { "isort", "black" },
@@ -31,8 +44,5 @@ require("conform").setup({
 		-- javascript = { "prettierd", "prettier", stop_after_first = true },
 	},
 	-- formatters = {
-	--   clang_format = {
-	--     prepend_args = { "-style={BasedOnStyle: llvm, IndentWidth: 4}" },
-	--   },
 	-- },
 })
