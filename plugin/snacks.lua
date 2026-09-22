@@ -7,28 +7,11 @@ Snacks.setup({
 	bigfile = { enabled = true },
 	indent = { enabled = true },
 
-	input = {
-		enabled = true,
-		win = {
-			bo = {
-				autocomplete = false,
-			},
-		},
-	},
-
 	picker = {
 		enabled = true,
-
-		win = {
-			input = {
-				bo = {
-					autocomplete = false,
-				},
-			},
-		},
-
 		sources = {
 			explorer = {
+        replace_netrw = false,
 				layout = {
 					layout = {
 						position = "right",
@@ -44,7 +27,7 @@ Snacks.setup({
 	words = { enabled = true },
 
 	dashboard = { enabled = false },
-	explorer = { enabled = true },
+	explorer = { enabled = true , replace_netrw = false},
 	statuscolumn = { enabled = false },
 	scroll = { enabled = false },
 })
