@@ -24,6 +24,10 @@ require("conform").setup({
 			args = { "-i", "$FILENAME" },
 			stdin = false,
 		},
+		biome = {
+			args = { "format", "--stdin-file-path", "$FILENAME" },
+			stdin = true,
+		},
 		--  clang_format = {
 		--    prepend_args = { "-style={BasedOnStyle: llvm, IndentWidth: 4}" },
 		--  },
@@ -34,8 +38,21 @@ require("conform").setup({
 		lua = { "stylua" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
-		markdown = { "prettier" },
+
+		markdown = { "prettierd" },
+		html = { "prettierd" },
+
 		qml = { "qmlformat" },
+
+		javascript = { "biome" },
+		typescript = { "biome" },
+		javascriptreact = { "biome" },
+		typescriptreact = { "biome" },
+
+		css = { "biome" },
+
+		json = { "biome" },
+		jsonc = { "biome" },
 		-- rust = { 'rustfmt' },
 		-- Conform can also run multiple formatters sequentially
 		-- python = { "isort", "black" },
