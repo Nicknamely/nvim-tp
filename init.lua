@@ -10,8 +10,10 @@ require("vim._core.ui2").enable({
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
+vim.g.netrw_banner = 0
 
 vim.cmd.colorscheme("matugen")
+vim.cmd.packadd('nvim.undotree')
 
 require("options")
 require("autocmds")
