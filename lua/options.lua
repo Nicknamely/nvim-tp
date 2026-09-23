@@ -85,7 +85,7 @@ vim.opt.wildignore:append({
 	"dist/*",
 	"build/*",
 })
---
+
 -- Diagnostics
 vim.diagnostic.config({
 	severity_sort = true,
@@ -123,5 +123,3 @@ vim.diagnostic.config({
 		focusable = false,
 	},
 })
-
--- UI2
