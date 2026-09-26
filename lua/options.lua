@@ -34,7 +34,8 @@ vim.o.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
 vim.o.expandtab = true -- use spaces instead of tabs
 vim.o.breakindent = true
 vim.o.smartindent = true -- smart auto-indent
-vim.opt.iskeyword:append("-") -- include - in words
+-- vim.opt.iskeyword:append("-") -- include - in words
+vim.opt.iskeyword:remove("_")
 vim.o.wrap = true
 vim.o.linebreak = true
 
