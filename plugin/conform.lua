@@ -41,6 +41,8 @@ require("conform").setup({
 
 		markdown = { "prettierd" },
 		html = { "prettierd" },
+		astro = { "prettierd" },
+		vue = { "prettierd" },
 
 		qml = { "qmlformat" },
 
