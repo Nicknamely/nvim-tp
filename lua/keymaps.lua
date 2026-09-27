@@ -1,7 +1,8 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-vim.keymap.set("n","-",":Explore<cr>",{silent = true})
+vim.keymap.set("n", "-", ":Explore<cr>", { silent = true })
 
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- Navigation
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -26,13 +27,12 @@ vim.keymap.set("n", "<leader>ur", function()
 end, { desc = "Toggle relative number" })
 
 vim.keymap.set("n", "<leader>ud", function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { desc = "Toggle diagnostics" })
 
 vim.keymap.set("n", "<leader>un", function()
 	vim.o.number = not vim.o.number
 end, { desc = "Toggle number" })
-
 
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 	require("conform").format({ async = true })
