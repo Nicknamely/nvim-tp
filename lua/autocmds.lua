@@ -41,29 +41,16 @@ do
 				return
 			end
 
-			-- if name == 'telescope-fzf-native.nvim' and vim.fn.executable 'make' == 1 then
-			--   run_build(name, { 'make' }, ev.data.path)
-			--   return
-			-- end
-
-			if name == "LuaSnip" then
-				if vim.fn.has("win32") ~= 1 and vim.fn.executable("make") == 1 then
-					run_build(name, { "make", "install_jsregexp" }, ev.data.path)
-				end
-				return
-			end
-
-			if name == "nvim-treesitter" then
+			if name == "blink.cmp" then
 				if not ev.data.active then
-					vim.cmd.packadd("nvim-treesitter")
+					vim.cmd.packadd("blink.cmp")
 				end
-				vim.cmd("TSUpdate")
+				require("blink.cmp").build()
 				return
 			end
 		end,
 	})
 end
-
 -- Auto Open quickfix after `:grep`
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 	pattern = { "grep", "grep!", "lgrep" },
@@ -102,7 +89,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 		end
 
-    -- better grr
+		-- better grr
 		local Snacks = require("snacks")
 		if Snacks.picker then
 			vim.keymap.set("n", "grr", function()

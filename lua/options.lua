@@ -70,7 +70,8 @@ vim.opt.foldenable = true
 
 -- Completion
 -- vim.opt.autocomplete = true
-vim.opt.completeopt = "menuone,fuzzy,noinsert,popup"
+
+vim.opt.completeopt = "menuone,fuzzy,preview,noinsert,popup"
 vim.o.pumheight = 10
 vim.o.pumborder = "none"
 -- cmd
