@@ -52,6 +52,7 @@ require("conform").setup({
 		typescriptreact = { "biome" },
 
 		css = { "biome" },
+		scss = { "prettierd" },
 
 		json = { "biome" },
 		jsonc = { "biome" },
