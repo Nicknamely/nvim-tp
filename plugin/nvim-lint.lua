@@ -5,9 +5,9 @@ local lint = require("lint")
 -- 1. Filetype Mappings
 lint.linters_by_ft = {
   lua = { "luacheck" },
-  cpp = { "cpplint","clangtidy" },
-  c = { "cpplint","clangtidy" },
-  sh = { "shellcheck" },
+  cpp = { "clangtidy" },
+  c = { "clangtidy" },
+  -- sh = { "shellcheck" },
   javascript = { "biomejs" },
   typescript = { "biomejs" },
 }
