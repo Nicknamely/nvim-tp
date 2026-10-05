@@ -1,0 +1,24 @@
+vim.pack.add({ "https://github.com/rafamadriz/friendly-snippets.git" })
+--
+-- -- 2. Load the snippets into Neovim's native engine
+-- local runtime_paths = vim.api.nvim_get_runtime_file("snippets", true)
+-- for _, path in ipairs(runtime_paths) do
+--   vim.snippet.add(path)
+-- end
+--
+-- -- 3. Native Tab keymaps to jump between snippet placeholders ($1 -> $2 -> $0)
+-- vim.keymap.set({ "i", "s" }, "<Tab>", function()
+--   if vim.snippet.active({ direction = 1 }) then
+--     return "<cmd>lua vim.snippet.jump(1)<CR>"
+--   else
+--     return "<Tab>"
+--   end
+-- end, { expr = true, silent = true })
+--
+-- vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+--   if vim.snippet.active({ direction = -1 }) then
+--     return "<cmd>lua vim.snippet.jump(-1)<CR>"
+--   else
+--     return "<S-Tab>"
+--   end
+-- end, { expr = true, silent = true })
