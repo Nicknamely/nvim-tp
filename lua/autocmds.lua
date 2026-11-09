@@ -1,7 +1,12 @@
--- Reload colorscheme
+-- Reload colorscheme (matugen regenerates colors/matugen.lua, then sends SIGUSR1)
 vim.api.nvim_create_autocmd("Signal", {
 	pattern = "SIGUSR1",
-	command = "colorscheme matugen",
+	callback = function()
+		local colors = vim.fn.stdpath("config") .. "/colors/matugen.lua"
+		if vim.fn.filereadable(colors) == 1 then
+			vim.cmd.colorscheme("matugen")
+		end
+	end,
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -12,55 +17,36 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-do
-	--  In this section we set up some autocommands to run build
-	--  steps for certain plugins after they are installed or updated.
-
-	local function run_build(name, cmd, cwd)
-		local result = vim.system(cmd, { cwd = cwd }):wait()
-		if result.code ~= 0 then
-			local stderr = result.stderr or ""
-			local stdout = result.stdout or ""
-			local output = stderr ~= "" and stderr or stdout
-			if output == "" then
-				output = "No output from build command."
-			end
-			vim.notify(("Build failed for %s:\n%s"):format(name, output), vim.log.levels.ERROR)
+-- Run build steps for plugins that need them after install/update.
+-- Registered before any `vim.pack.add()` (see init.lua) so first installs are caught.
+vim.api.nvim_create_autocmd("PackChanged", {
+	group = vim.api.nvim_create_augroup("pack-build", { clear = true }),
+	desc = "Run build steps for installed/updated plugins",
+	callback = function(ev)
+		local name = ev.data.spec.name
+		local kind = ev.data.kind
+		if kind ~= "install" and kind ~= "update" then
+			return
 		end
-	end
 
-	-- This autocommand runs after a plugin is installed or updated and
-	--  runs the appropriate build command for that plugin if necessary.
-	--
-	-- See `:help vim.pack-events`
-	vim.api.nvim_create_autocmd("PackChanged", {
-		callback = function(ev)
-			local name = ev.data.spec.name
-			local kind = ev.data.kind
-			if kind ~= "install" and kind ~= "update" then
-				return
+		if name == "blink.cmp" then
+			-- Build relies on plugin code, so make sure it is loaded first.
+			if not ev.data.active then
+				vim.cmd.packadd("blink.cmp")
 			end
-
-			if name == "blink.cmp" then
-				if not ev.data.active then
-					vim.cmd.packadd("blink.cmp")
-				end
-				require("blink.cmp").build()
-				return
+			local ok, err = require("blink.cmp").build():pwait()
+			if not ok then
+				vim.notify(("blink.cmp build failed: %s"):format(err), vim.log.levels.ERROR)
 			end
-		end,
-	})
-end
+		end
+	end,
+})
 -- Auto Open quickfix after `:grep`
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	desc = "Open quickfix after grep",
 	pattern = { "grep", "grep!", "lgrep" },
-	command = "cwindow",
+	command = "botright cwindow",
 })
--- cmd completion
--- vim.api.nvim_create_autocmd('CmdlineChanged', {
---   pattern = { ':', '/', '?' },
---   callback = function() vim.fn.wildtrigger() end,
--- })
 
 -- diagnostic
 vim.api.nvim_create_autocmd("CursorHold", {
@@ -79,36 +65,36 @@ local lsp_highlight = vim.api.nvim_create_augroup("lsp-highlight", { clear = fal
 
 vim.api.nvim_create_autocmd("LspDetach", {
 	group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+	desc = "Clear LSP highlights when a client detaches",
 	callback = function(event)
-		vim.lsp.buf.clear_references()
+		vim.lsp.util.buf_clear_references(event.buf)
 		vim.api.nvim_clear_autocmds({ group = lsp_highlight, buffer = event.buf })
 	end,
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	desc = "Set up buffer-local LSP features",
 	callback = function(event)
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		if not client then
 			return
 		end
 
-		if client then
-			client.server_capabilities.semanticTokensProvider = nil
-		end
+		client.server_capabilities.semanticTokensProvider = nil
 
 		-- better grr
-		local Snacks = require("snacks")
-		if Snacks.picker then
-			vim.keymap.set("n", "grr", function()
-				Snacks.picker.lsp_references()
-			end, {
-				buffer = event.buf,
-				desc = "Goto references",
-			})
-		end
+		vim.keymap.set("n", "grr", function()
+			require("snacks").picker.lsp_references()
+		end, {
+			buffer = event.buf,
+			desc = "Goto references",
+		})
+
 		-- Document highlight on cursor hold
 		if client:supports_method("textDocument/documentHighlight", event.buf) then
+			-- Clear first so multi-client buffers don't stack duplicate handlers.
+			vim.api.nvim_clear_autocmds({ group = lsp_highlight, buffer = event.buf })
 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 				buffer = event.buf,
 				group = lsp_highlight,
@@ -124,7 +110,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client:supports_method("textDocument/inlayHint", event.buf) then
 			vim.keymap.set("n", "<leader>uh", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-			end)
+			end, { buffer = event.buf, desc = "Toggle inlay hints" })
 		end
 	end,
 })
