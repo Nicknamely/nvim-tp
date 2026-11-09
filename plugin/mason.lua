@@ -11,12 +11,14 @@ vim.pack.add({
 })
 
 require("mason").setup({})
+require("fidget").setup({})
 require("mason-lspconfig").setup({ automatic_enable = true })
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"stylua",
-		"prettier",
+		"prettierd",
 		"lua-language-server",
+    "luacheck",
+    "bash-language-server"
 	},
 })
-require("fidget").setup({})
