@@ -3,22 +3,34 @@ vim.pack.add({
 	"https://github.com/mason-org/mason-lspconfig.nvim",
 	"https://github.com/j-hui/fidget.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-	-- "https://github.com/mfussenegger/nvim-lint",
-	-- "https://github.com/mfussenegger/nvim-dap",
-	-- "https://github.com/jay-babu/mason-nvim-dap.nvim",
-	-- "https://github.com/rcarriga/nvim-dap-ui",
-	-- "https://github.com/nvim-neotest/nvim-nio",
 })
 
 require("mason").setup({})
 require("fidget").setup({})
-require("mason-lspconfig").setup({ automatic_enable = true })
+require("mason-lspconfig").setup({
+	automatic_enable = {
+		-- jdtls is started by after/ftplugin/java.lua with java-debug/java-test bundles.
+		-- stylua is a formatter (conform owns it); its --lsp client adds no value here.
+		exclude = { "jdtls", "stylua" },
+	},
+})
 require("mason-tool-installer").setup({
 	ensure_installed = {
+		-- formatters / linters
 		"stylua",
 		"prettierd",
+		"luacheck",
+		-- language servers
 		"lua-language-server",
-    "luacheck",
-    "bash-language-server"
+		"bash-language-server",
+		"astro-language-server",
+		"emmet-language-server",
+		"tinymist",
+		"vtsls",
+		"vue-language-server",
+		-- java + debug
+		"jdtls",
+		"java-debug-adapter",
+		"java-test",
 	},
 })
