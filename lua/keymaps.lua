@@ -3,15 +3,6 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "-", ":Explore<cr>", { silent = true })
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
--- Navigation
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
--- Completion
-vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { desc = "Omnifunc completion" })
-
 vim.keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<CR>", { desc = "New tab" })
 vim.keymap.set("n", "<leader><tab>c", "<cmd>tabclose<CR>", { desc = "Close tab" })
 vim.keymap.set("n", "<leader><tab>o", "<cmd>tabonly<CR>", { desc = "Close other tabs" })
