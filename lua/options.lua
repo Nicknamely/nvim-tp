@@ -1,12 +1,11 @@
 -- General
 
-vim.o.exrc = true
-vim.o.autoread = true
 vim.o.autoread = true
 vim.o.confirm = true
-vim.o.inccommand = "split" -- ?
+vim.o.inccommand = "nosplit"
 
 -- UI
+vim.o.termguicolors = true -- colorscheme uses hex colors
 vim.o.cmdheight = 0 -- single line cmd line
 vim.o.number = true
 vim.o.relativenumber = false
@@ -19,7 +18,7 @@ vim.o.laststatus = 3
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.list = true
-vim.opt.listchars = { trail = "·", nbsp = "␣", tab = "  " }
+vim.opt.listchars = { trail = "·", nbsp = "␣", tab = "»·" }
 vim.opt.shortmess:append({
 	W = true,
 	I = true,
