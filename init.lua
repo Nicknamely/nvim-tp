@@ -17,7 +17,10 @@ vim.g.netrw_clipboard = 0
 vim.g.netrw_fastbrowse = 1
 
 
-vim.cmd.colorscheme("matugen")
+local matugen_colors = vim.fn.stdpath("config") .. "/colors/matugen.lua"
+if vim.fn.filereadable(matugen_colors) == 1 then
+	vim.cmd.colorscheme("matugen")
+end
 vim.cmd.packadd('nvim.undotree')
 
 require("options")
