@@ -46,7 +46,7 @@ map("n", "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Git log
 map("n", "<leader>gL", function() Snacks.picker.git_log_line() end, { desc = "Git logs Line" })
 map("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git logs file" })
 map("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Git Status" })
-map("n", "<leader>gS", function() Snacks.picker.git_status() end, { desc = "Git Stash" })
+map("n", "<leader>gS", function() Snacks.picker.git_stash() end, { desc = "Git Stash" })
 
 map("n", "<leader>q", function() Snacks.picker.qflist() end, { desc = "quickfix" })
 
