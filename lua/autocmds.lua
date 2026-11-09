@@ -67,11 +67,23 @@ vim.api.nvim_create_autocmd("CursorHold", {
 	desc = "Show diagnostic message on cursor hold",
 	group = vim.api.nvim_create_augroup("diagnostic-float", { clear = true }),
 	callback = function()
-		vim.diagnostic.open_float(nil, { focusable = false })
+		if #vim.diagnostic.get(0) > 0 then
+			vim.diagnostic.open_float(nil, { focusable = false })
+		end
 	end,
 })
 -- LSP
 -- Disable semantic tokens when any LSP client attaches to a buffer
+
+local lsp_highlight = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+
+vim.api.nvim_create_autocmd("LspDetach", {
+	group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+	callback = function(event)
+		vim.lsp.buf.clear_references()
+		vim.api.nvim_clear_autocmds({ group = lsp_highlight, buffer = event.buf })
+	end,
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -83,10 +95,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		if client then
 			client.server_capabilities.semanticTokensProvider = nil
-		end
-		-- Completion
-		if client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 		end
 
 		-- better grr
@@ -101,23 +109,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 		-- Document highlight on cursor hold
 		if client:supports_method("textDocument/documentHighlight", event.buf) then
-			local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 				buffer = event.buf,
-				group = highlight_augroup,
+				group = lsp_highlight,
 				callback = vim.lsp.buf.document_highlight,
 			})
 			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 				buffer = event.buf,
-				group = highlight_augroup,
+				group = lsp_highlight,
 				callback = vim.lsp.buf.clear_references,
-			})
-			vim.api.nvim_create_autocmd("LspDetach", {
-				group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-				callback = function(event2)
-					vim.lsp.buf.clear_references()
-					vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
-				end,
 			})
 		end
 		-- Inlay hints toggle
