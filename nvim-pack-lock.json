@@ -69,6 +69,10 @@
       "rev": "993d048db0d83d8e8ba3f9cb376456321acdcce3",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
+    "nvim-silicon": {
+      "rev": "7f66bda8f60c97a5bf4b37e5b8acb0e829ae3c32",
+      "src": "https://github.com/michaelrommel/nvim-silicon"
+    },
     "nvim-treesitter": {
       "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
