@@ -7,7 +7,7 @@ require("typst-preview").setup({
 
 	-- Custom format string to open the output link provided with %s
 	-- Example: open_cmd = 'firefox %s -P typst-preview --class typst-preview'
-	open_cmd = "zen-browser --private-window %s",
+	open_cmd = "flatpak run app.zen_browser.zen --private-window %s",
 
 	-- Custom port to open the preview server. Default is random.
 	-- Example: port = 8000
