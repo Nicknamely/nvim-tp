@@ -72,6 +72,30 @@ vim.api.nvim_create_autocmd("LspDetach", {
 	end,
 })
 
+-- Stop LSP clients that no longer serve any loaded buffer, e.g. after `:bd`.
+-- Otherwise clients like jdtls keep running (and holding memory) indefinitely.
+vim.api.nvim_create_autocmd({ "BufDelete", "BufUnload", "BufWipeout" }, {
+	group = vim.api.nvim_create_augroup("lsp-autostop", { clear = true }),
+	desc = "Stop LSP clients with no attached buffers",
+	callback = function()
+		vim.schedule(function()
+			local attached = {}
+			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+				if vim.api.nvim_buf_is_loaded(buf) then
+					for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+						attached[client.id] = true
+					end
+				end
+			end
+			for _, client in ipairs(vim.lsp.get_clients()) do
+				if not attached[client.id] then
+					client:stop()
+				end
+			end
+		end)
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	desc = "Set up buffer-local LSP features",
