@@ -54,8 +54,9 @@ require("conform").setup({
 		css = { "biome" },
 		scss = { "prettierd" },
 
-		json = { "biome" },
-		jsonc = { "biome" },
+		json = { "prettierd" },
+		jsonc = { "prettierd" },
+		xml = { "xmlformatter" },
 		-- rust = { 'rustfmt' },
 		-- Conform can also run multiple formatters sequentially
 		-- python = { "isort", "black" },
