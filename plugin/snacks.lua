@@ -35,7 +35,9 @@ Snacks.setup({
 -- keymaps
 local map = vim.keymap.set
 
+-- UI
 map("n", "<leader>z", function() Snacks.zen() end, { desc = "Toggle zen mode" })
+
 map("n", "<leader>sh", function() Snacks.picker.help() end, { desc = "Help page" })
 map("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "grep" })
 map("n", "<leader>sM", function() Snacks.picker.man() end, { desc = "Man pages" })
