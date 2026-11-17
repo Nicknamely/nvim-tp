@@ -1,0 +1,6 @@
+-- vim.pack.add({
+-- 	{ src = "nvim-neotest/neotest" },
+-- 	{ src = "nvim-neotest/nvim-nio" },
+-- 	{ src = "antoinemadec/FixCursorHold.nvim" },
+-- })
+-- TODO: add url
